@@ -105,4 +105,12 @@ class AuthController extends Controller
     {
         return response()->json($request->user());
     }
+    public function usersOrder()
+    {
+        $userorder =User::with(['order'])->get();
+        return response()->json(
+            $userorder,
+            200
+        );
+    }
 }

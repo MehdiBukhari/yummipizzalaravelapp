@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\order;
+use App\orderline;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -14,7 +15,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders =order::with(['orderline'])->get();
+        return response()->json(
+            $orders,
+            200
+        );
     }
 
     /**
@@ -24,8 +29,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +40,28 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $orderline=$request->orderline;
+        try {
+            $ordernew=new order([
+                'userid'=>$request->user()->id,
+                'totalPrice'=>$request->totalPrice
+             ]);
+            $ordernew->save();
+            $orderid=$ordernew->id;
+            foreach ($orderline as $ord) {
+                $orderitem=new orderline([
+                        'foodid'=>$request->foodid,
+                        'orderid'=>$eventid
+                    ]);
+                $orderitem->save();
+            }
+
+            return response()->json([
+         'message' => 'Successfully Order Placed'
+     ], 200);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
     /**

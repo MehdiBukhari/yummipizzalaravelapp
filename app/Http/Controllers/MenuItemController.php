@@ -14,7 +14,11 @@ class MenuItemController extends Controller
      */
     public function index()
     {
-        //
+        $menunames=MenuItem::latest();
+        return response()->json(
+            $menunames,
+            200
+        );
     }
 
     /**
@@ -35,7 +39,18 @@ class MenuItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $request->validate([
+            'name' => 'required',
+        ]);
+  
+            MenuItem::create($request->all());
+            return response()->json([
+         'message' => 'Successfully Menu Type Created'
+     ], 200);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
     /**
@@ -78,8 +93,11 @@ class MenuItemController extends Controller
      * @param  \App\MenuItem  $menuItem
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MenuItem $menuItem)
+    public function destroy(Request $request)
     {
-        //
+        MenuItem::find($request->id)->delete();
+        return response()->json([
+         'message' => 'Successfully deleted'
+     ], 200);
     }
 }

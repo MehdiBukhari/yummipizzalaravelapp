@@ -14,7 +14,11 @@ class FooditemController extends Controller
      */
     public function index()
     {
-        //
+        $productlist=fooditem::latest();
+        return response()->json(
+            $productlist,
+            200
+        );
     }
 
     /**
@@ -35,7 +39,29 @@ class FooditemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $ProductPic="";
+            if ($request->file('ProductPhoto')!=null) {
+                $destinationPath = 'uploads';
+                $file = $request->file('ProductPhoto');
+                $ProductPic = $file->store($file->getClientOriginalName());
+                $ProductPic=$destinationPath.'/'.$file->getClientOriginalName();
+                $file->move($destinationPath, $file->getClientOriginalName());
+            }
+            $fooditem=new fooditem([
+                        'proname'=> $request->proname,
+                        'descrpation'=> $request->descrpation,
+                        'imagepath'=> $ProductPic,
+                        'price' =>$request->price,
+                        'menuitemnid'=>$eventid
+                    ]);
+            $fooditem->save();
+            return response()->json([
+         'message' => 'Successfully Product Created'
+     ], 200);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
     /**
@@ -78,8 +104,11 @@ class FooditemController extends Controller
      * @param  \App\fooditem  $fooditem
      * @return \Illuminate\Http\Response
      */
-    public function destroy(fooditem $fooditem)
+    public function destroy(Request $request)
     {
-        //
+        fooditem::find($request->id)->delete();
+        return response()->json([
+         'message' => 'Successfully deleted'
+     ], 200);
     }
 }

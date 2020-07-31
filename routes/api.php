@@ -30,24 +30,6 @@ Route::group([
         Route::get('user', 'AuthController@user');
     });
 });
-Route::group([
-    'prefix' => 'parent'
-], function () {
-    Route::post('signup', 'AppparentController@create');
-    // write open routes here
-    
-    Route::group([
-      'middleware' => ['auth:api', 'scope:appparent']
-    ], function () {
-        Route::get('parent', 'AuthController@user');
-        Route::put('parentUpdate', 'AppparentController@update');
-        Route::post('kid', 'KidsController@store');
-        Route::post('GetUserKids', 'KidsController@GetUserKids');
-        Route::post('GetUserKidsbyid', 'KidsController@GetUserKidsbyid');
-        Route::post('kidupdate', 'KidsController@update');
-        Route::delete('kiddelete', 'KidsController@update');
-    });
-});
 // routes for Admin
 Route::group([
     'prefix' => 'admin'
