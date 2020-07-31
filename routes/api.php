@@ -14,6 +14,61 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/* Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+}); */
+Route::group([
+    'prefix' => 'auth'
+], function () {
+    Route::post('/login', 'AuthController@login')->name('login');
+    Route::post('signup', 'AuthController@signup');
+  
+    Route::group([
+      'middleware' => 'auth:api'
+    ], function () {
+        Route::get('logout', 'AuthController@logout');
+        Route::get('user', 'AuthController@user');
+    });
+});
+Route::group([
+    'prefix' => 'parent'
+], function () {
+    Route::post('signup', 'AppparentController@create');
+    // write open routes here
+    
+    Route::group([
+      'middleware' => ['auth:api', 'scope:appparent']
+    ], function () {
+        Route::get('parent', 'AuthController@user');
+        Route::put('parentUpdate', 'AppparentController@update');
+        Route::post('kid', 'KidsController@store');
+        Route::post('GetUserKids', 'KidsController@GetUserKids');
+        Route::post('GetUserKidsbyid', 'KidsController@GetUserKidsbyid');
+        Route::post('kidupdate', 'KidsController@update');
+        Route::delete('kiddelete', 'KidsController@update');
+    });
+});
+// routes for Admin
+Route::group([
+    'prefix' => 'admin'
+], function () {
+    // write open routes here
+    
+    
+    Route::group([
+      'middleware' => ['auth:api', 'scope:admin']
+    ], function () {
+    });
+});
+// routes for User
+Route::group([
+    'prefix' => 'admin'
+], function () {
+    // write open routes here
+    
+    
+    Route::group([
+      'middleware' => ['auth:api', 'scope:admin']
+    ], function () {
+    });
 });
