@@ -14,7 +14,7 @@ class FooditemController extends Controller
      */
     public function index()
     {
-        $productlist=fooditem::latest();
+        $productlist=fooditem::all();
         return response()->json(
             $productlist,
             200
@@ -53,7 +53,7 @@ class FooditemController extends Controller
                         'descrpation'=> $request->descrpation,
                         'imagepath'=> $ProductPic,
                         'price' =>$request->price,
-                        'menuitemnid'=>$eventid
+                        'menuitemnid'=>$request->menuitemnid
                     ]);
             $fooditem->save();
             return response()->json([
@@ -70,9 +70,12 @@ class FooditemController extends Controller
      * @param  \App\fooditem  $fooditem
      * @return \Illuminate\Http\Response
      */
-    public function show(fooditem $fooditem)
+    public function show(Request $request)
     {
-        //
+        $food=fooditem::find($request->id);
+        return response()->json([
+         $food
+     ], 200);
     }
 
     /**
@@ -104,10 +107,11 @@ class FooditemController extends Controller
      * @param  \App\fooditem  $fooditem
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destro(Request $request)
     {
-        fooditem::find($request->id)->delete();
+        $food=fooditem::find($request->id)->delete();
         return response()->json([
+            $food,
          'message' => 'Successfully deleted'
      ], 200);
     }

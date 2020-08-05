@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "96d88c61a44a435da8621b27ba75fbda",
+    "content-hash": "17783d95d7455cb0e3820f6b9a627b59",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2158,6 +2158,50 @@
                 "x509"
             ],
             "time": "2020-07-08T09:08:33+00:00"
+        },
+        {
+            "name": "profclems/postman-collection-generator",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/profclems/postman-collection-generator.git",
+                "reference": "61f2148d53fc7b4143dee1ee63a49971ab550da8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/profclems/postman-collection-generator/zipball/61f2148d53fc7b4143dee1ee63a49971ab550da8",
+                "reference": "61f2148d53fc7b4143dee1ee63a49971ab550da8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Profclems\\PostmanCollectionGenerator\\PostmanCollectionServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Profclems\\PostmanCollectionGenerator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Clement Sam",
+                    "email": "clementsam75@gmail.com"
+                }
+            ],
+            "description": "A package that automatically generate postman collection from laravel api/web routes",
+            "time": "2020-08-05T06:03:27+00:00"
         },
         {
             "name": "psr/container",

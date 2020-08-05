@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class order extends Model
 {
     protected $fillable = [
-        'userid', 'totalPrice',
+        'userid', 'totalPrice','adress','mobileNumber',
     ];
     public function orderline()
     {

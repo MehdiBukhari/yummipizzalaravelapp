@@ -44,14 +44,17 @@ class OrderController extends Controller
         try {
             $ordernew=new order([
                 'userid'=>$request->user()->id,
-                'totalPrice'=>$request->totalPrice
+                'totalPrice'=>$request->totalPrice,
+                'adress' => $request->adress,
+                'mobileNumber' =>$request->mobileNumber
              ]);
             $ordernew->save();
             $orderid=$ordernew->id;
             foreach ($orderline as $ord) {
                 $orderitem=new orderline([
-                        'foodid'=>$request->foodid,
-                        'orderid'=>$eventid
+                        'foodid'=>$ord['foodid'],
+                        'orderid'=>$orderid,
+                        'Qunty'=>$ord['Qunty'],
                     ]);
                 $orderitem->save();
             }
@@ -107,5 +110,23 @@ class OrderController extends Controller
     public function destroy(order $order)
     {
         //
+    }
+    public function getUserOrders(Request $request)
+    {
+        $id=$request->userid;
+        $orders =order::with(['orderline'])->where('userid', '=', $id)->get();
+        return response()->json(
+            $orders,
+            200
+        );
+    }
+    public function getUserOwnOrders(Request $request)
+    {
+        $id=$request->user()->id;
+        $orders =order::with(['orderline'])->where('userid', '=', $id)->get();
+        return response()->json(
+            $orders,
+            200
+        );
     }
 }

@@ -15,9 +15,9 @@ class CreateOrderlinesTable extends Migration
     {
         Schema::create('orderlines', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('orderid')->unique();
+            $table->unsignedBigInteger('orderid');
             $table->foreign('orderid')->references('id')->on('orders');
-            $table->unsignedBigInteger('foodid')->unique();
+            $table->unsignedBigInteger('foodid');
             $table->foreign('foodid')->references('id')->on('fooditems');
             $table->timestamps();
         });

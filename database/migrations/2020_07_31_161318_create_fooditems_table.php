@@ -19,7 +19,7 @@ class CreateFooditemsTable extends Migration
             $table->string('descrpation');
             $table->string('imagepath');
             $table->string('price');
-            $table->unsignedBigInteger('menuitemnid')->unique();
+            $table->unsignedBigInteger('menuitemnid');
             $table->foreign('menuitemnid')->references('id')->on('menu_items');
             $table->timestamps();
         });

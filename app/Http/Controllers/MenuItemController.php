@@ -14,7 +14,7 @@ class MenuItemController extends Controller
      */
     public function index()
     {
-        $menunames=MenuItem::latest();
+        $menunames=MenuItem::all();
         return response()->json(
             $menunames,
             200
@@ -93,7 +93,7 @@ class MenuItemController extends Controller
      * @param  \App\MenuItem  $menuItem
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destro(Request $request)
     {
         MenuItem::find($request->id)->delete();
         return response()->json([
