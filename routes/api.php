@@ -61,7 +61,13 @@ Route::group([
     Route::group([
       'middleware' => ['auth:api', 'scope:user']
     ], function () {
-        Route::post('orders/create', 'OrderController@store');
+        //Route::post('orders/create', 'OrderController@store');
         Route::post('orders/getUserOwnOrders', 'OrderController@getUserOwnOrders');
     });
+    Route::group([
+      'middleware' => ['auth:api']
+    ], function () {
+        Route::post('orders/create', 'OrderController@store');
+    });
+
 });

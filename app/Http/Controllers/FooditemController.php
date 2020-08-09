@@ -41,13 +41,11 @@ class FooditemController extends Controller
     {
         try {
             $ProductPic="";
-            if ($request->file('ProductPhoto')!=null) {
                 $destinationPath = 'uploads';
                 $file = $request->file('ProductPhoto');
                 $ProductPic = $file->store($file->getClientOriginalName());
                 $ProductPic=$destinationPath.'/'.$file->getClientOriginalName();
-                $file->move($destinationPath, $file->getClientOriginalName());
-            }
+                $file->move($destinationPath, $file->getClientOriginalName());         
             $fooditem=new fooditem([
                         'proname'=> $request->proname,
                         'descrpation'=> $request->descrpation,
