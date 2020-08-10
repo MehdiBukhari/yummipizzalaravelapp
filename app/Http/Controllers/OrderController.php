@@ -41,9 +41,10 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $orderline=json_decode($request->orderline,true);
+        $userid=($request->user()==null)?1:$request->user()->id;
         try {
             $ordernew=new order([
-                'userid'=>$request->user()->id,
+                'userid'=>$userid,
                 'totalPrice'=>$request->totalPrice,
                 'adress' => $request->adress,
                 'mobileNumber' =>$request->mobileNumber

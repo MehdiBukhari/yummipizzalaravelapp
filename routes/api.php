@@ -58,7 +58,8 @@ Route::group([
     Route::post('food', 'FooditemController@index');
     Route::post('food/single', 'FooditemController@show');
     Route::post('menuitems', 'MenuItemController@index');
-    
+    Route::post('orders/create', 'OrderController@store');
+
     Route::group([
       'middleware' => ['auth:api', 'scope:user']
     ], function () {
@@ -68,7 +69,7 @@ Route::group([
     Route::group([
       'middleware' => ['auth:api']
     ], function () {
-        Route::post('orders/create', 'OrderController@store');
+        
     });
 
 });
